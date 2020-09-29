@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\QuestionPaper;
 use App\Question;
 use App\Answer;
 use DB;
@@ -74,13 +75,49 @@ class QManagerController extends Controller
             and q.q_type = 'structured' 
             and q.q_number = a.q_number ORDER BY RAND() LIMIT 10 ");
 
-       
+
+        $qpnumber  = $this->addQuestionPaperToDB($questions, $strQuestions,$trade, $class);
+
+        return redirect()->back()->with('success', "Question Paper generated successfully: Question Paper Number is ".$qpnumber);
+
         $pdf = \PDF::loadView('papers.generalPaper', compact('questions', 'strQuestions', 'trade', 'subject', 'class') );
         // If you want to store the generated pdf to the server then you
       /*  //can use the store function
         $pdf->save(storage_path().'_filename.pdf');*/
         // Finally, you can download the file using download function
         return $pdf->download('questionPaper.pdf');
+    }
+
+    public function addQuestionPaperToDB($questions, $strQuestions, $trade, $class)
+    {
+        $qpnumber = random_int(100000 , 999999).$trade.$class;
+        foreach ($questions as $question) {
+            # code...
+            QuestionPaper::query()->create([
+                'qp_title' => $trade. " ".$class,
+                'qp_number' => $qpnumber,
+                'questionsNum' => $question->q_number,
+                'qp_class' => $class,
+                'q_type' => 'multiple_choice',
+                'qp_status' => 'new',
+            ]);
+
+        }
+        foreach ($strQuestions as $q) {
+            # code...
+            QuestionPaper::query()->create([
+                'qp_title' => $trade. " ".$class,
+                'qp_number' => $qpnumber,
+                'questionsNum' => $q->q_number,
+                'qp_class' => $class,
+                'q_type' => 'structured',
+                'qp_status' => 'new',
+            ]);
+
+        }
+
+        return  $qpnumber;
+
     }
 
     public function ImportFromExcel()
@@ -167,5 +204,24 @@ class QManagerController extends Controller
         }
 
         return redirect()->back()->with('success', "Questions imported successfully");
+    }
+
+    public function viewGeneratedPapers()
+    {
+        $question_papers =  QuestionPaper::query()->distinct()->get(['qp_number', 'qp_title', 'qp_class']);
+        return view('questions.generatedPapers')->with('question_papers', $question_papers);
+    }
+
+    public function viewPaper($qp_number)
+    {
+        $paper =  QuestionPaper::query()->distinct()->where('qp_number', $qp_number)->get(['qp_number', 'qp_title', 'qp_class']);
+        $strQuestions = QuestionPaper::query()->where('q_type', 'structured')->where('qp_number', $qp_number)->get();
+        $mulQuestions = QuestionPaper::query()->where('q_type', 'multiple_choice')->where('qp_number', $qp_number)->get();
+       /* Log::info($paper);
+        Log::info($strQuestions);
+        Log::info($mulQuestions);*/
+        return view('papers.viewGenPaper')->with('strQuestions', $strQuestions)
+                                          ->with('mulQuestions', $mulQuestions)
+                                          ->with('paper', $paper);
     }
 }

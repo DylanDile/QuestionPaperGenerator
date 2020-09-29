@@ -43,6 +43,11 @@ Route::prefix('admin')->group(function(){
 	Route::get('/generate/multipleChoice', 'QManagerController@genMultipleChoice')->name('admin.genMultipleChoice');
 	Route::post('/generate/multipleChoice', 'QManagerController@genMultipleChoiceSubmit')->name('admin.genMultipleChoice.submit');
 	Route::post('/generate/questionPaper', 'QManagerController@generatePaper')->name('admin.genPaper.submit');
+	Route::get('/generated/questionPapers', 'QManagerController@viewGeneratedPapers')->name('admin.viewGeneratedPapers');
+
+	Route::get('/viewPaper/{qp_number}', 'QManagerController@viewPaper')->name('admin.viewPaper');
+
+	
 
 });
 

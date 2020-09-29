@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend/assets/img/favi.ico')}}">
-    <title>QPGenerator</title>
+    <title>TTGenerator</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/font-awesome.min.css')}}">
@@ -21,8 +21,8 @@
     <div class="header">
         <div class="header-left">
             <a href="{{route('home')}}" class="logo">
-                <img src="" width="50" height="50" alt="">&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;<span><strong><h2>QPGen</h2></strong></span>
+                <img src="{{asset('frontend/assets/img/clock.png')}}" width="20" height="20" alt="">&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;<span><strong><h2>TTGen</h2></strong></span>
             </a>
         </div>
         <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
@@ -98,7 +98,8 @@
                         <ul style="display: none;">
                             <li><a href="{{ route('admin.genMultipleChoice') }}"><i class="fa fa-bars text-warning"></i> <span>&nbsp;Generate Paper</span></a>
                             </li>
-                            
+                            <li><a href="{{ route('admin.viewGeneratedPapers') }}"><i class="fa fa-bars text-warning"></i> <span>&nbsp;Generated Papers</span></a>
+                            </li>
                         </ul>
                     </li>
                     @endif

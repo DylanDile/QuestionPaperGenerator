@@ -4,7 +4,7 @@
 <div class="container">   
     <div class="card-info float-md-none">
         <div class="card-header">
-            <h4>Generate a Question Paper</h4>
+            <h4>Generate a Trade Test Question Paper</h4>
         </div>
         <div class="card-body text-left bg-white">
             <form action="{{ route('admin.genPaper.submit') }}" method="post">

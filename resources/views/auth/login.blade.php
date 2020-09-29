@@ -25,7 +25,7 @@
                 <form method="post" action="{{ route('login') }}" class="form-signin">
                     @csrf
                     <div class="account-logo">
-                        <a href="/"><h3>Question Paper Generator</h3></a>
+                        <a href="/"><h3>Trade Test Generator</h3></a>
                         <hr>
                        <h4>Login</h4>
                     </div>

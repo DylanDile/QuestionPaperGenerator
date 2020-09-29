@@ -29,10 +29,20 @@
                 <form method="POST" action="{{ route('register') }}" class="form-signin">
                     @csrf
                     <div class="account-logo">
-                       <a href="/"><h3>Question Paper Generator</h3></a>
+                       <a href="/"><h3>Trade Test Generator</h3></a>
                         <hr>
                        <h4>Register Account</h4>
                     </div>
+                     <div class="form-group">
+                        <label>EC Number</label>
+                        <input id="ecnumber" type="text" class="form-control @error('ecnumber') is-invalid @enderror" name="ecnumber" value="{{ old('ecnumber') }}" required autocomplete="ecnumber" autofocus>
+                        @error('ecnumber')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+                    
                     <div class="form-group">
                         <label>Full Name</label>
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -75,6 +85,16 @@
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
+                        @enderror
+                    </div>
+
+                     <div class="form-group">
+                        <label>Class</label>
+                        <input id="class" type="text" class="form-control @error('class') is-invalid @enderror" name="class" value="{{ old('class') }}" required autocomplete="class" autofocus>
+                        @error('class')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                         @enderror
                     </div>
 

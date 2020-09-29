@@ -15,13 +15,13 @@
             Industrial Training anf Trade Testing Department <br>                     
         </h3>
         <br>
-        <img src="{{ public_path('images/ministry.png') }}" width="20%" height="15%"> <br> 
-       {{--  <img src="/images/ministry.png" width="20%" height="15%"> <br>  --}}
+       {{--  <img src="{{ public_path('/images/ministry.png') }}" width="20%" height="15%"> <br> --}} 
+        <img src="/images/ministry.png" width="20%" height="15%"> <br> 
         <h4>ZIMBABWE</h4>
-        <h3 class="text-capitalize" > {{ $trade }}</h3>
-        <h5>{{ $subject }}</h5>
+        <h3 class="text-capitalize" > {{ $paper[0]->qp_title }}</h3>
+        <h5>{{ "" }}</h5>
         <br>
-        <h5><b>Class : {{ $class }}</b></h5>
+        <h5><b>Class : {{ $paper[0]->qp_class }}</b></h5>
         <h5><u>Theory Test</u></h5>
         </center>
     </p>
@@ -75,27 +75,28 @@
     <div class="visible-print-block">
         {{-- Mutliple Questions --}}
         <div>
-            @php
-            $counter=0;
-            @endphp
-            @foreach($questions as $question)
-                <div class="col-sm-10">
-                    <h4>Question No.: <b>@php
-                        $counter+=1;
-                        echo $counter;
-                    @endphp</b></h4>
-                    <p>{{ $question->question }} <b class="text-right float-right">[{{ $question->q_weight }}]</b> </p>
-                    @php
-                        $arrayAnswers = json_decode($question->all_answers);
-                    @endphp
-                   <h4><b> <u>Answers :</u></b></h4>
-                    A: {{ $arrayAnswers->A }} <br>
+        @php
+        $counter=0;
+        @endphp
+        @foreach($mulQuestions as $mulQuestion)
+            <div class="col-sm-10">
+                <h4>Question No.: <b>@php
+                    $counter+=1;
+                    echo $counter;
+                @endphp</b></h4>
+                <p>{{ $mulQuestion->questions->question }} <b class="text-right float-right">[{{ $mulQuestion->questions->q_weight }}]</b> </p>
+                @php
+                    $arrayAnswers = json_decode($mulQuestion->answers->all_answers);                        
+                @endphp
+               <h4><b> <u>Answers :</u></b></h4>
+                A: {{ $arrayAnswers->A }} <br>
                     B: {{ $arrayAnswers->B }} <br>
                     C: {{ $arrayAnswers->C }} <br>
                     D: {{ $arrayAnswers->D }} <br>
-                    <hr>
-                </div>
-            @endforeach
+                    <hr>                    
+            </div>
+        @endforeach
+
         </div>
         {{-- End multiple questions --}}
 
@@ -109,8 +110,8 @@
                         $counter+=1;
                         echo $counter;
                     @endphp</b></h4>
-                    <p>{{ $strQuestion->question }} <b class="text-right float-right">[{{ $strQuestion->q_weight }}]</b></p>                    
-                    <hr>
+                    {{-- <p>{{ $strQuestion->questions->question }} <b class="text-right float-right">[{{ $strQuestion->questions->q_weight }}]</b></p>                    
+                    <hr> --}}
                 </div>
             @endforeach
         </div>
