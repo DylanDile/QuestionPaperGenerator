@@ -5,6 +5,7 @@
 @endsection
 @section('content')
 <div class="container">
+@if(auth::user()->isAdmin)
 <div class="">
     <h4>All Questions</h4>
     <form action="{{ route('admin.searchQuestion') }}" method="post">
@@ -71,6 +72,9 @@
         </table>
     </div>
 </div>
+@endif
+
+<h3>Trade Tests Exam Sitting and Marking System</h3>
 </div>
 @endsection
 @section('javascripts')
