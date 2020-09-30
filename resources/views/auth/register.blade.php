@@ -34,7 +34,7 @@
                        <h4>Register Account</h4>
                     </div>
                      <div class="form-group">
-                        <label>EC Number</label>
+                        <label>Reg Number</label>
                         <input id="ecnumber" type="text" class="form-control @error('ecnumber') is-invalid @enderror" name="ecnumber" value="{{ old('ecnumber') }}" required autocomplete="ecnumber" autofocus>
                         @error('ecnumber')
                         <span class="invalid-feedback" role="alert">
