@@ -22,7 +22,7 @@
         <h5>{{ "" }}</h5>
         <br>
         <h5><b>Class : {{ $paper[0]->qp_class }}</b></h5>
-        <h5><u>Theory Test</u></h5>
+        <h5><u>Theory Trade Test</u></h5>
         </center>
     </p>
     <hr>
@@ -84,12 +84,12 @@
                     $counter+=1;
                     echo $counter;
                 @endphp</b></h4>
-                <p>{{ $mulQuestion->questions->question }} <b class="text-right float-right">[{{ $mulQuestion->questions->q_weight }}]</b> </p>
+                <p>{{ $mulQuestion->question }} <b class="text-right float-right">[{{ $mulQuestion->q_weight }}]</b> </p>
                 @php
-                    $arrayAnswers = json_decode($mulQuestion->answers->all_answers);                        
+                    $arrayAnswers = json_decode($mulQuestion->all_answers);                        
                 @endphp
                <h4><b> <u>Answers :</u></b></h4>
-                A: {{ $arrayAnswers->A }} <br>
+                    A: {{ $arrayAnswers->A }} <br>
                     B: {{ $arrayAnswers->B }} <br>
                     C: {{ $arrayAnswers->C }} <br>
                     D: {{ $arrayAnswers->D }} <br>
@@ -110,8 +110,8 @@
                         $counter+=1;
                         echo $counter;
                     @endphp</b></h4>
-                    {{-- <p>{{ $strQuestion->questions->question }} <b class="text-right float-right">[{{ $strQuestion->questions->q_weight }}]</b></p>                    
-                    <hr> --}}
+                    <p>{{ $strQuestion->question }} <b class="text-right float-right">[{{ $strQuestion->q_weight }}]</b></p>                    
+                    <hr>
                 </div>
             @endforeach
         </div>

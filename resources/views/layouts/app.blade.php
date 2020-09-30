@@ -39,9 +39,13 @@
                 </a>
                 <div class="dropdown-menu">
                     <i class="status-orange">Role: 
-                         @if(auth()->user()->isAdmin)
+                         @if(auth()->user()->isAdmin  == 1)
                            @php
                             echo "Admin";
+                            @endphp
+                         @elseif(auth()->user()->isAdmin == 2)
+                            @php
+                            echo "Examiner";
                             @endphp
                          @else
                             @php
@@ -71,27 +75,29 @@
                     <li class="active">
                         <a href="{{ route('home') }}"><i class="fa fa-dashboard text-warning"></i> <span>Dashboard</span></a>
                     </li>
-                    @if(auth()->user()->isAdmin)
-                    <li class="submenu">
-                        <a href="#"><i class="fa fa-tasks text-warning"></i> <span>Add Questions</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul style="display: none;">
-                            <li><a href="{{ route('admin.addMutlipleChoiceQuestion') }}"><i class="fa fa-file-excel-o text-warning"></i><span>Multiple Choice</span></a>
-                            </li>        
-                             <li><a href="{{ route('admin.addStructuredQuestion') }}"><i class="fa fa-file-excel-o text-warning"></i><span>Structured Questions</span></a>
-                            </li>                      
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fa fa-flag-o text-warning"></i> <span> View Questions </span> <span
-                                class="menu-arrow"></span></a>
-                        <ul style="display: none;">
-                            <li><a href="{{ route('questions.multipleChoice') }}"><i class="fa fa-bars text-warning"></i> <span>&nbsp;Multiple Choice</span></a>
-                            </li>
-                            <li><a href="{{ route('questions.structured') }}"><i class="fa fa-bars text-warning"></i> <span>&nbsp;Structured</span></a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if(auth()->user()->isAdmin == 1 || auth()->user()->isAdmin == 2)
+                        @if(auth()->user()->isAdmin == 1)
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-tasks text-warning"></i> <span>Add Questions</span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="{{ route('admin.addMutlipleChoiceQuestion') }}"><i class="fa fa-file-excel-o text-warning"></i><span>Multiple Choice</span></a>
+                                </li>        
+                                 <li><a href="{{ route('admin.addStructuredQuestion') }}"><i class="fa fa-file-excel-o text-warning"></i><span>Structured Questions</span></a>
+                                </li>                      
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-flag-o text-warning"></i> <span> View Questions </span> <span
+                                    class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="{{ route('questions.multipleChoice') }}"><i class="fa fa-bars text-warning"></i> <span>&nbsp;Multiple Choice</span></a>
+                                </li>
+                                <li><a href="{{ route('questions.structured') }}"><i class="fa fa-bars text-warning"></i> <span>&nbsp;Structured</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endif
                     <li class="submenu">
                         <a href="#"><i class="fa fa-flag-o text-warning"></i> <span> Generate Question Ppr </span> <span
                                 class="menu-arrow"></span></a>
@@ -110,6 +116,8 @@
                             <li><a href="{{ route('student.skills.test') }}"><i class="fa fa-bars text-warning"></i> <span>&nbsp;Skills Test</span></a>
                             </li>
                             <li><a href="{{ route('student.test.results') }}"><i class="fa fa-bars text-warning"></i> <span>&nbsp;Test Results</span></a>
+                            </li>
+                            <li><a href="{{ route('scheduled_tests') }}"><i class="fa fa-bars text-warning"></i> <span>&nbsp;Scheduled Tests</span></a>
                             </li>
                         </ul>
                     </li>

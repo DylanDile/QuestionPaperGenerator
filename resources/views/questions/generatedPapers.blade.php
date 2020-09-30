@@ -38,7 +38,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="/admin/viewPaper/{{ $paper->qp_number }}"><i class="custom-badge status-blue fa fa-refresh m-r-5">&nbsp;View Paper</i></a>
                                  @if(auth::user()->isAdmin)
-                                <a class="dropdown-item" {{-- href="/admin/managePaper/{{ $paper->q_number }}" --}}><i class="custom-badge status-red fa fa-refresh m-r-5">&nbsp;Manage</i></a>
+                                <a class="dropdown-item" href="/admin/schedule/{{ $paper->qp_number }}"><i class="custom-badge status-red fa fa-refresh m-r-5">&nbsp;Post this Paper</i></a>
                                 @endif
                             </div>
                         </div>

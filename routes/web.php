@@ -20,6 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/scheduled_tests', 'TradeTestsController@index')->name('scheduled_tests');
+
+
 Route::prefix('admin')->group(function(){
 	//get methods
 	Route::get('/addQuestion', 'QuestionsController@addMultipleChoiceQuestion')->name('admin.addMutlipleChoiceQuestion');
@@ -42,12 +45,16 @@ Route::prefix('admin')->group(function(){
 	//generate question papers
 	Route::get('/generate/multipleChoice', 'QManagerController@genMultipleChoice')->name('admin.genMultipleChoice');
 	Route::post('/generate/multipleChoice', 'QManagerController@genMultipleChoiceSubmit')->name('admin.genMultipleChoice.submit');
+
 	Route::post('/generate/questionPaper', 'QManagerController@generatePaper')->name('admin.genPaper.submit');
+	Route::post('/trade_test/schedule', 'TradeTestsController@schedule')->name('admin.test_schedule.submit');
+
+
 	Route::get('/generated/questionPapers', 'QManagerController@viewGeneratedPapers')->name('admin.viewGeneratedPapers');
 
 	Route::get('/viewPaper/{qp_number}', 'QManagerController@viewPaper')->name('admin.viewPaper');
-
-	
+	Route::get('/schedule/{qp_number}', 'TradeTestsController@show')->name('admin.schedule_paper');
+	Route::get('/delete/{id}/test', 'TradeTestsController@delete')->name('admin.delete.test');	
 
 });
 

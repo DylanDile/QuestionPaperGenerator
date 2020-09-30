@@ -215,11 +215,23 @@ class QManagerController extends Controller
     public function viewPaper($qp_number)
     {
         $paper =  QuestionPaper::query()->distinct()->where('qp_number', $qp_number)->get(['qp_number', 'qp_title', 'qp_class']);
-        $strQuestions = QuestionPaper::query()->where('q_type', 'structured')->where('qp_number', $qp_number)->get();
-        $mulQuestions = QuestionPaper::query()->where('q_type', 'multiple_choice')->where('qp_number', $qp_number)->get();
-       /* Log::info($paper);
-        Log::info($strQuestions);
-        Log::info($mulQuestions);*/
+
+        $mulQuestions = DB::select("select q.q_number, q.question, q.q_weight , a.all_answers 
+            from questions q, answers a , question_papers qp           
+            where q.q_type = 'multiple_choice' 
+            and q.q_number = qp.questionsNum
+            and q.q_number = a.q_number
+            and qp.qp_number = '".$qp_number."' 
+            ");
+
+         $strQuestions = DB::select("select q.q_number, q.question, q.q_weight , a.all_answers 
+            from questions q, answers a  , question_papers qp
+            where q.q_number = qp.questionsNum           
+            and q.q_type = 'structured' 
+            and q.q_number = a.q_number 
+            and qp.qp_number = '".$qp_number."'
+            ");
+
         return view('papers.viewGenPaper')->with('strQuestions', $strQuestions)
                                           ->with('mulQuestions', $mulQuestions)
                                           ->with('paper', $paper);
