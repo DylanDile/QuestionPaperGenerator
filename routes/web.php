@@ -22,7 +22,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/scheduled_tests', 'TradeTestsController@index')->name('scheduled_tests');
 
-
 Route::prefix('admin')->group(function(){
 	//get methods
 	Route::get('/addQuestion', 'QuestionsController@addMultipleChoiceQuestion')->name('admin.addMutlipleChoiceQuestion');
@@ -64,6 +63,8 @@ Route::prefix('student')->group(function(){
 	Route::post('/skills/test/submit', 'SkillsController@testSubmit')->name('student.skillsTest.submit');
 	Route::get('/test/results', 'SkillsController@testResults')->name('student.test.results');
 	Route::get('/test/answers/{test_id}', 'SkillsController@getResults')->name('student.results.show');
+	Route::get('/take/{test_id}/test', 'TradeTestsController@takeTest')->name('student.take.test');
+	Route::post('/submit/test', 'TradeTestsController@submitTest')->name('student.trade_test.submit');
 });
 
 Route::prefix('questions')->group(function(){

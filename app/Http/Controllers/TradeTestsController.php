@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\TradeTest;
 use App\QuestionPaper;
 use Auth;
+use Illuminate\Support\Str;
 
 class TradeTestsController extends Controller
 {
@@ -77,5 +78,48 @@ class TradeTestsController extends Controller
         $tt = TradeTest::query()->find($id);
         $tt->delete();
         return redirect(route('scheduled_tests'))->with('success', 'Trade Test Deleted'); 
+    }
+
+    public function takeTest($id)
+    {
+         $tt = TradeTest::query()->find($id);
+         $qp_number = $tt->qp_number;
+         return view('tests.takeTest')->with('qp_number', $qp_number);
+
+    }
+
+    public function submitTest(Request $request)
+    {
+        //simple way 
+        $arrayAnswers = array();
+        $arrayStrAnswers = array();
+
+        for ($i=1; $i < 21 ; $i++) { 
+            # code...
+            $ansAtNum = $request->input('answer'.$i.'');
+            $qusAtNum = $request->input('q_number'.$i.'');
+
+            $newArray = array('question' => $qusAtNum, 'answer' => $ansAtNum);      
+            $arrayAnswers += [$i => $newArray];     
+
+        }  
+
+        for ($i=1; $i < 11 ; $i++) { 
+            # code...
+            $ansAtNum = $request->input('str_answer'.$i.'');
+            $qusAtNum = $request->input('str_q_number'.$i.'');
+
+            $newArray = array('question' => $qusAtNum, 'answer' => $ansAtNum);      
+            $arrayStrAnswers += [$i => $newArray];      
+
+        }  
+        
+        dd($arrayAnswers , $arrayStrAnswers);
+
+        $testID = date('dmyyHs').auth::user()->id.Str::random(3);       
+
+        MarkingJob::dispatch(auth::user()->id, $arrayAnswers, $testID);
+
+        return redirect(route('scheduled_tests'))->with('success', 'Your test has been successfully submitted');
     }
 }

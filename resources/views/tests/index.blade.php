@@ -52,8 +52,12 @@
                                             <a class="dropdown-item" href="/admin/delete/{{ $trade_test->id }}/test"><i class="custom-badge status-red fa fa-refresh m-r-5">&nbsp;Delete Test</i></a>
                                             @endif
 
-                                            @if(!auth::user()->isAdmin)
-                                            <a class="dropdown-item"{{--  href="/student/take/{{ $trade_test->id }}/test" --}}><i class="custom-badge status-red fa fa-refresh m-r-5">&nbsp;Take Test</i></a>
+                                            @php
+                                                $today = date('Y-m-d');
+                                            @endphp
+
+                                            @if(!auth::user()->isAdmin && $today == $trade_test->exam_date)
+                                            <a class="dropdown-item" href="/student/take/{{ $trade_test->id }}/test"><i class="custom-badge status-red fa fa-refresh m-r-5">&nbsp;Take Test</i></a>
                                             @endif
 
                                         </div>
