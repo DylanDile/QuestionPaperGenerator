@@ -56,9 +56,11 @@ class TakeTest extends Component
 
 	public function mount($qp_number)
 	{
-		$this->minute =0;
 		$this->state =0;
+
+		$this->minute =30;		
 		$this->second = 60;
+
 	    $this->qp_number = $qp_number;
 
 	    $this->paper =  QuestionPaper::query()->distinct()->where('qp_number', $qp_number)->get(['qp_number', 'qp_title', 'qp_class']);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     @livewireStyles
+     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend/assets/img/favi.ico')}}">
@@ -14,6 +14,7 @@
     <script src="{{asset('frontend/assets/js/html5shiv.min.js')}}"></script>
     <script src="{{asset('frontend/assets/js/respond.min.js')}}"></script>
     <![endif]-->
+    @livewireStyles
     @yield('styles')
 </head>
 
